@@ -11,7 +11,7 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   namespace        = "argocd"
   create_namespace = true
-  version          = var.cluster_autoscaler_helm_verion
+  version          = var.argocd_helm_verion
 
   values = [file("values/argocd.yaml")]
 

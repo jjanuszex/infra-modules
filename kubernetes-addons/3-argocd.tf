@@ -1,3 +1,7 @@
+data "aws_iam_openid_connect_provider" "this" {
+  arn = var.openid_provider_arn
+}
+
 resource "helm_release" "argocd" {
   count = var.enable_cluster_autoscaler ? 1 : 0
 

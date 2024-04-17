@@ -3,7 +3,7 @@ data "aws_iam_openid_connect_provider" "this" {
 }
 
 resource "helm_release" "argocd" {
-  count = var.enable_cluster_autoscaler ? 1 : 0
+  count = var.enable_argocd ? 1 : 0
 
   name = "argocd"
 

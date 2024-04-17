@@ -1,7 +1,3 @@
-data "aws_iam_openid_connect_provider" "this" {
-  arn = var.openid_provider_arn
-}
-
 resource "helm_release" "argocd" {
   count = var.enable_argocd ? 1 : 0
 

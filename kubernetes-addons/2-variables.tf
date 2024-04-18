@@ -34,3 +34,8 @@ variable "argocd_helm_verion" {
   description = "argocd Helm verion"
   type        = string
 }
+
+variable "values_file" {
+  description = "Path to the values file"
+  type        = string
+}

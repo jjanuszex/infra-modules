@@ -23,7 +23,7 @@ resource "aws_iam_role" "aws_load_balancer_controller" {
 
 resource "aws_iam_policy" "aws_load_balancer_controller" {
   policy = var.aws_lb_controller_policy
-  name   = [file("${var.aws_lb_controller_policy}")]
+  name   = "./AWSLoadBalancerController.json"
 }
 
 resource "aws_iam_role_policy_attachment" "aws_load_balancer_controller_attach" {

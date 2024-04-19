@@ -58,7 +58,7 @@ resource "helm_release" "aws_lb_controller" {
   }
 
   depends_on = [
-    aws_eks_node_group.general,
+    var.node_groups.1["general"],
     aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
   ]
 

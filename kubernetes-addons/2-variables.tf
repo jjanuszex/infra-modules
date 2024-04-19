@@ -39,3 +39,17 @@ variable "values_file" {
   description = "Path to the values file"
   type        = string
 }
+
+## LB Controller
+
+variable "enable_aws_lb_controller" {
+  description = "Determines whether to deploy lb controller"
+  type        = bool
+  default     = false
+}
+
+variable "aws_lb_controller_helm_verion" {
+  description = "argocd Helm verion"
+  type        = string
+  default     = "1.4.1"
+}

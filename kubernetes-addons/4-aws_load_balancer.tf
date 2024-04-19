@@ -37,6 +37,7 @@ output "aws_load_balancer_controller_role_arn" {
 
 #### HELMRELEASE ####
 
+
 resource "helm_release" "aws_lb_controller" {
   count = var.enable_aws_lb_controller ? 1 : 0
 
@@ -54,7 +55,7 @@ resource "helm_release" "aws_lb_controller" {
 
   set {
     name  = "clusterName"
-    value = aws_eks_cluster.this.name
+    value = var.eks_name
   }
 
   set {

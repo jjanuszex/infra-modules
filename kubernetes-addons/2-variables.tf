@@ -57,5 +57,5 @@ variable "aws_lb_controller_helm_verion" {
 variable "aws_lb_controller_policy" {
   description = "Path to the AWSLoadBalancerController policy file"
   type        = string
-  default     = file("./AWSLoadBalancerController.json")
+  default     = "./AWSLoadBalancerController.json"
 }

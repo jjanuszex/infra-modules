@@ -5,3 +5,8 @@ output "eks_name" {
 output "openid_provider_arn" {
   value = aws_iam_openid_connect_provider.this[0].arn
 }
+
+output "node_group_names" {
+  description = "The names of the EKS node groups"
+  value       = [for ng in aws_eks_node_group.general : ng.name]
+}

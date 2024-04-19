@@ -17,17 +17,17 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
 }
 
 data "aws_eks_cluster" "cluster_name" {
-  name =  data.aws_eks_cluster.this.name  
+  name =  module.eks.cluster_name
 }
 
 data "aws_eks_node_groups" "general" {
-  cluster_name = data.aws_eks_cluster.this.name
+  cluster_name = module.eks.cluster_name
 }
 
 data "aws_eks_node_group" "example" {
-  for_each = data.aws_eks_node_groups.general.name
+  for_each = module.eks.node_group_names
 
-  cluster_name    = data.aws_eks_cluster.this.name
+  cluster_name    = module.eks.cluster_name
   node_group_name = each.value
 }
 

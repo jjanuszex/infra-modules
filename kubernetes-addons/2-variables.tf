@@ -53,3 +53,10 @@ variable "aws_lb_controller_helm_verion" {
   type        = string
   default     = "1.4.1"
 }
+
+variable "aws_lb_controller_policy" {
+  description = "Path to the AWSLoadBalancerController policy file"
+  type        = string
+  default     = "./AWSLoadBalancerController.json"
+  
+}

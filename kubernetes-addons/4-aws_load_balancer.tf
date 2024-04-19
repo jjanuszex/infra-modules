@@ -1,3 +1,7 @@
+data "aws_iam_openid_connect_provider" "this" {
+  arn = var.openid_provider_arn
+}
+
 data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -5,12 +9,12 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
+      variable = "${replace(aws_iam_openid_connect_provider.this.url, "https://", "")}:sub"
       values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
     }
 
     principals {
-      identifiers = [aws_iam_openid_connect_provider.eks.arn]
+      identifiers = [aws_iam_openid_connect_provider.this.arn]
       type        = "Federated"
     }
   }
@@ -22,7 +26,7 @@ resource "aws_iam_role" "aws_load_balancer_controller" {
 }
 
 resource "aws_iam_policy" "aws_load_balancer_controller" {
-  policy = file("./AWSLoadBalancerController.json")
+  policy = var.aws_lb_controller_policy
   name   = "AWSLoadBalancerController"
 }
 

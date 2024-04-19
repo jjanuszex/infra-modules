@@ -49,7 +49,7 @@ resource "helm_release" "aws_lb_controller" {
 
   set {
     name  = "clusterName"
-    value = aws_eks_cluster.cluster.id
+    value = aws_eks_cluster.this.id
   }
 
   set {
@@ -63,7 +63,7 @@ resource "helm_release" "aws_lb_controller" {
   }
 
   depends_on = [
-    aws_eks_node_group.private-nodes,
+    aws_eks_node_group.general,
     aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
   ]
 

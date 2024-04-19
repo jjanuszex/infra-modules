@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(data.aws_iam_openid_connect_provider.this, "https://", "")}:sub"
+      variable = "${replace(data.aws_iam_openid_connect_provider.this.url, "https://", "")}:sub"
       values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
     }
 
@@ -23,7 +23,7 @@ resource "aws_iam_role" "aws_load_balancer_controller" {
 
 resource "aws_iam_policy" "aws_load_balancer_controller" {
   policy = var.aws_lb_controller_policy
-  name   = "AWSLoadBalancerController"
+  name   = [file("${var.aws_lb_controller_policy}")]
 }
 
 resource "aws_iam_role_policy_attachment" "aws_load_balancer_controller_attach" {

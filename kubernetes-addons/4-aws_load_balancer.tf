@@ -17,17 +17,17 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
 }
 
 data "aws_eks_cluster" "cluster_name" {
-  name =  module.eks.cluster_name
+  name =  module.aws_eks_cluster.this.name
 }
 
 data "aws_eks_node_groups" "general" {
-  cluster_name = module.eks.cluster_name
+  cluster_name = module.aws_eks_cluster.this.name
 }
 
 data "aws_eks_node_group" "example" {
   for_each = module.eks.node_group_names
 
-  cluster_name    = module.eks.cluster_name
+  cluster_name    = module.aws_eks_cluster.this.name
   node_group_name = each.value
 }
 
@@ -65,7 +65,7 @@ resource "helm_release" "aws_lb_controller" {
 
   set {
     name  = "clusterName"
-    value = aws_eks_cluster.this.id
+    value = data.aws_eks_cluster.this.name
   }
 
   set {

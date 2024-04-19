@@ -58,5 +58,4 @@ variable "aws_lb_controller_policy" {
   description = "Path to the AWSLoadBalancerController policy file"
   type        = string
   default     = file("./AWSLoadBalancerController.json")
-  
 }

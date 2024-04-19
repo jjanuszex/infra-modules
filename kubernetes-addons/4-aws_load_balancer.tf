@@ -16,6 +16,22 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
   }
 }
 
+data "aws_eks_cluster" "cluster_name" {
+  name =  aws_eks_cluster.this.name  
+}
+
+data "aws_eks_node_groups" "general" {
+  cluster_name = data.aws_eks_cluster.cluster_name.name
+}
+
+data "aws_eks_node_group" "example" {
+  for_each = data.aws_eks_node_groups.general.names
+
+  cluster_name    = data.aws_eks_cluster.cluster_name.name
+  node_group_name = each.value
+}
+
+
 resource "aws_iam_role" "aws_load_balancer_controller" {
   assume_role_policy = data.aws_iam_policy_document.aws_load_balancer_controller_assume_role_policy.json
   name               = "aws-load-balancer-controller"

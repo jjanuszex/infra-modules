@@ -16,20 +16,17 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
   }
 }
 
-data "aws_eks_cluster" "cluster_name" {
-  name =  module.aws_eks_cluster.this.name
-}
 
-data "aws_eks_node_groups" "general" {
-  cluster_name = module.aws_eks_cluster.this.name
-}
+# data "aws_eks_node_groups" "general" {
+#   cluster_name = module.aws_eks_cluster.this.name
+# }
 
-data "aws_eks_node_group" "example" {
-  for_each = module.eks.node_group_names
+# data "aws_eks_node_group" "general" {
+#   for_each = module.eks.node_group_names
 
-  cluster_name    = module.aws_eks_cluster.this.name
-  node_group_name = each.value
-}
+#   cluster_name    = module.aws_eks_cluster.this.name
+#   node_group_name = each.value
+# }
 
 
 resource "aws_iam_role" "aws_load_balancer_controller" {
@@ -62,11 +59,6 @@ resource "helm_release" "aws_lb_controller" {
   chart      = "aws-load-balancer-controller"
   namespace  = "kube-system"
   version    = var.aws_lb_controller_helm_verion
-
-  set {
-    name  = "clusterName"
-    value = data.aws_eks_cluster.this.name
-  }
 
   set {
     name  = "serviceAccount.name"

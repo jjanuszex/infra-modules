@@ -7,12 +7,12 @@ data "aws_iam_policy_document" "karpenter_controller_assume_role_policy" {
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(data.aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
+      variable = "${replace(data.aws_iam_openid_connect_provider.this.url, "https://", "")}:sub"
       values   = ["system:serviceaccount:karpenter:karpenter"]
     }
 
     principals {
-      identifiers = [data.aws_iam_openid_connect_provider.eks.arn]
+      identifiers = [data.aws_iam_openid_connect_provider.this.arn]
       type        = "Federated"
     }
   }

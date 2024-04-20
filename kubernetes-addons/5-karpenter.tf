@@ -18,6 +18,10 @@ data "aws_iam_policy_document" "karpenter_controller_assume_role_policy" {
   }
 }
 
+data "aws_iam_role" "node_role" {
+  name = "dev-demo-eks-nodes"
+}
+
 resource "aws_iam_role" "karpenter_controller" {
   assume_role_policy = data.aws_iam_policy_document.karpenter_controller_assume_role_policy.json
   name               = "karpenter-controller"
@@ -35,7 +39,7 @@ resource "aws_iam_role_policy_attachment" "aws_karpenter_attach" {
 
 resource "aws_iam_instance_profile" "karpenter" {
   name = "KarpenterNodeInstanceProfile"
-  role = "arn:aws:iam::922024924278:role/dev-demo-eks-nodes"
+  role = data.aws_iam_role.node_role.name
 }
 
 #Karpenter Controller HelmRelease

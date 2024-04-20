@@ -59,3 +59,23 @@ variable "aws_lb_controller_policy" {
   type        = string
   default     = "./AWSLoadBalancerController.json"
 }
+
+## Karpenter
+
+variable "enable_karpenter" {
+  description = "Determines whether to deploy karpenter"
+  type        = bool
+  default     = false
+}
+
+variable "karpenter_helm_verion" {
+  description = "Karpenter Helm verion"
+  type        = string
+  default     = "v0.13.1"
+  
+}
+
+variable "eks_cluster_endpoint" {
+  description = "EKS Cluster Endpoint"
+  type        = string
+}

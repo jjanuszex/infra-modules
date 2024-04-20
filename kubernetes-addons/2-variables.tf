@@ -72,5 +72,5 @@ variable "karpenter_helm_verion" {
   description = "Karpenter Helm verion"
   type        = string
   default     = "v0.13.1"
-  
+
 }

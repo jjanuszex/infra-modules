@@ -74,8 +74,3 @@ variable "karpenter_helm_verion" {
   default     = "v0.13.1"
   
 }
-
-variable "eks_cluster_endpoint" {
-  description = "EKS Cluster Endpoint"
-  type        = string
-}

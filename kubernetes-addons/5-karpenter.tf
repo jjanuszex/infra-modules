@@ -62,7 +62,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "clusterEndpoint"
-    value = var.eks_cluster_endpoint
+    value = "https://97248944C47CEDCE9E7307BD542936F9.gr7.eu-central-1.eks.amazonaws.com"
   }
 
   set {

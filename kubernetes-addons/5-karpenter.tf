@@ -7,12 +7,12 @@ data "aws_iam_policy_document" "karpenter_controller_assume_role_policy" {
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
+      variable = "${replace(data.aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
       values   = ["system:serviceaccount:karpenter:karpenter"]
     }
 
     principals {
-      identifiers = [aws_iam_openid_connect_provider.eks.arn]
+      identifiers = [data.aws_iam_openid_connect_provider.eks.arn]
       type        = "Federated"
     }
   }
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "aws_karpenter_attach" {
 
 resource "aws_iam_instance_profile" "karpenter" {
   name = "KarpenterNodeInstanceProfile"
-  role = aws_iam_role.nodes.name
+  role = "arn:aws:iam::922024924278:role/dev-demo-eks-nodes"
 }
 
 #Karpenter Controller HelmRelease
